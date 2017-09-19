@@ -1,0 +1,5 @@
+.container .item {
+	padding: 56px 20px;
+	min-height: 200px;
+	background: rgba(32, 37, 75, .65);
+}
