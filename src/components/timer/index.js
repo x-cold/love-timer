@@ -49,6 +49,6 @@ class Timer extends Component {
 
 Timer.defaultProps = {
   // 颜色渐变列表
-  baseTime: new Date('2015-9-19 22:00:00').valueOf()
+  baseTime: new Date('2015-9-19 22:10:00').valueOf()
 };
 export default Timer;
