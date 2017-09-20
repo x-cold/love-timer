@@ -85,8 +85,8 @@ module.exports = __webpack_require__("JkW7");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact__ = __webpack_require__("JcFu");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_preact__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_timer__ = __webpack_require__("lEIB");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_animate__ = __webpack_require__("vBoo");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__utils_animate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_particule__ = __webpack_require__("rYcU");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_heart__ = __webpack_require__("rPwV");
 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -99,145 +99,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var renderParticule = function renderParticule() {
-	var canvasEl = document.querySelector('#bgCanvas');
-	var ctx = canvasEl.getContext('2d');
-	var numberOfParticules = Number(location.href.split('?')[1]) || 40;
-	var pointerX = 0;
-	var pointerY = 0;
-	var tap = 'ontouchstart' in window || navigator.msMaxTouchPoints ? 'touchstart' : 'mousedown';
-	var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
 
-	function setCanvasSize() {
-		canvasEl.width = window.innerWidth * 2;
-		canvasEl.height = window.innerHeight * 2;
-		canvasEl.style.width = window.innerWidth + 'px';
-		canvasEl.style.height = window.innerHeight + 'px';
-		canvasEl.getContext('2d').scale(2, 2);
-	}
-
-	function updateCoords(e) {
-		pointerX = e.clientX || e.touches[0].clientX;
-		pointerY = e.clientY || e.touches[0].clientY;
-	}
-
-	function setParticuleDirection(p) {
-		var angle = __WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(0, 360) * Math.PI / 180;
-		var value = __WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(50, 180);
-		var radius = [-1, 1][__WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(0, 1)] * value;
-		return {
-			x: p.x + radius * Math.cos(angle),
-			y: p.y + radius * Math.sin(angle)
-		};
-	}
-
-	function createParticule(x, y) {
-		var p = {};
-		p.x = x;
-		p.y = y;
-		p.color = colors[__WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(0, colors.length - 1)];
-		p.radius = __WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(16, 32);
-		p.endPos = setParticuleDirection(p);
-		p.draw = function () {
-			ctx.beginPath();
-			ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-			ctx.fillStyle = p.color;
-			ctx.fill();
-		};
-		return p;
-	}
-
-	function createCircle(x, y) {
-		var p = {};
-		p.x = x;
-		p.y = y;
-		p.color = '#FFF';
-		p.radius = 0.1;
-		p.alpha = .5;
-		p.lineWidth = 6;
-		p.draw = function () {
-			ctx.globalAlpha = p.alpha;
-			ctx.beginPath();
-			ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-			ctx.lineWidth = p.lineWidth;
-			ctx.strokeStyle = p.color;
-			ctx.stroke();
-			ctx.globalAlpha = 1;
-		};
-		return p;
-	}
-
-	function renderParticule(anim) {
-		for (var i = 0; i < anim.animatables.length; i++) {
-			anim.animatables[i].target.draw();
-		}
-	}
-
-	function animateParticules(x, y) {
-		var circle = createCircle(x, y);
-		var particules = [];
-		for (var i = 0; i < numberOfParticules; i++) {
-			particules.push(createParticule(x, y));
-		}
-		__WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.timeline().add({
-			targets: particules,
-			x: function x(p) {
-				return p.endPos.x;
-			},
-			y: function y(p) {
-				return p.endPos.y;
-			},
-			radius: 0.1,
-			duration: __WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(1200, 1800),
-			easing: 'easeOutExpo',
-			update: renderParticule
-		}).add({
-			targets: circle,
-			radius: __WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(80, 160),
-			lineWidth: 0,
-			alpha: {
-				value: 0,
-				easing: 'linear',
-				duration: __WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(600, 800)
-			},
-			duration: __WEBPACK_IMPORTED_MODULE_2__utils_animate___default.a.random(1200, 1800),
-			easing: 'easeOutExpo',
-			update: renderParticule,
-			offset: 0
-		});
-	}
-
-	var render = __WEBPACK_IMPORTED_MODULE_2__utils_animate___default()({
-		duration: Infinity,
-		update: function update() {
-			ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
-		}
-	});
-
-	document.addEventListener(tap, function (e) {
-		window.human = true;
-		render.play();
-		updateCoords(e);
-		animateParticules(pointerX, pointerY);
-	}, false);
-
-	window.addEventListener('resize', setCanvasSize, false);
-
-	return {
-		render: render,
-		setCanvasSize: setCanvasSize,
-		animateParticules: animateParticules
-	};
-};
 
 var _ref = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
 	'div',
 	{ className: 'container' },
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])('canvas', { id: 'bgCanvas' }),
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(__WEBPACK_IMPORTED_MODULE_2__components_particule__["a" /* default */], null),
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
 		'div',
-		{ className: 'item' },
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])('div', { className: 'heart heartbeat' }),
+		{ className: 'content' },
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(__WEBPACK_IMPORTED_MODULE_3__components_heart__["a" /* default */], null),
 		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(__WEBPACK_IMPORTED_MODULE_1__components_timer__["a" /* default */], null),
 		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
 			'div',
@@ -260,10 +131,6 @@ var Home = function (_Component) {
 
 		return _possibleConstructorReturn(this, _Component.apply(this, arguments));
 	}
-
-	Home.prototype.componentDidMount = function componentDidMount() {
-		renderParticule();
-	};
 
 	Home.prototype.render = function render() {
 		return _ref;
@@ -494,11 +361,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "Tv6c":
+/***/ "UKZy":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"profile":"profile__t2Dqz"};
+module.exports = {"heart":"heart__6Al7C","heartbeat":"heartbeat__2WBcH"};
 
 /***/ }),
 
@@ -506,6 +373,7 @@ module.exports = {"profile":"profile__t2Dqz"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+module.exports = {"timer":"timer__3mfTz"};
 
 /***/ }),
 
@@ -513,13 +381,12 @@ module.exports = {"profile":"profile__t2Dqz"};
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subscribers", function() { return subscribers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCurrentUrl", function() { return getCurrentUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "route", function() { return route; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return Router; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return Route; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return Link; });
+/* unused harmony export subscribers */
+/* unused harmony export getCurrentUrl */
+/* unused harmony export route */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Router; });
+/* unused harmony export Route */
+/* unused harmony export Link */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact__ = __webpack_require__("JcFu");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_preact__);
 
@@ -890,224 +757,8 @@ Router.Router = Router;
 Router.Route = Route;
 Router.Link = Link;
 
-/* harmony default export */ __webpack_exports__["default"] = (Router);
+/* unused harmony default export */ var _unused_webpack_default_export = (Router);
 //# sourceMappingURL=preact-router.es.js.map
-
-/***/ }),
-
-/***/ "gNuw":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Profile; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact__ = __webpack_require__("JcFu");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_preact__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style__ = __webpack_require__("Tv6c");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style__);
-
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-var Profile = function (_Component) {
-	_inherits(Profile, _Component);
-
-	function Profile() {
-		var _temp, _this, _ret;
-
-		_classCallCheck(this, Profile);
-
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
-
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
-			time: Date.now(),
-			count: 10
-		}, _this.updateTime = function () {
-			_this.setState({ time: Date.now() });
-		}, _this.increment = function () {
-			_this.setState({ count: _this.state.count + 1 });
-		}, _temp), _possibleConstructorReturn(_this, _ret);
-	}
-
-	// gets called when this route is navigated to
-	Profile.prototype.componentDidMount = function componentDidMount() {
-		// start a timer for the clock:
-		this.timer = setInterval(this.updateTime, 1000);
-	};
-
-	// gets called just before navigating away from the route
-
-
-	Profile.prototype.componentWillUnmount = function componentWillUnmount() {
-		clearInterval(this.timer);
-	};
-
-	// update the current time
-
-
-	// Note: `user` comes from the URL, courtesy of our router
-	Profile.prototype.render = function render(_ref, _ref2) {
-		var user = _ref.user;
-		var time = _ref2.time,
-		    count = _ref2.count;
-
-		return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-			'div',
-			{ 'class': __WEBPACK_IMPORTED_MODULE_1__style___default.a.profile },
-			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-				'h1',
-				null,
-				'Profile: ',
-				user
-			),
-			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-				'p',
-				null,
-				'This is the user profile for a user named ',
-				user,
-				'.'
-			),
-			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-				'div',
-				null,
-				'Current time: ',
-				new Date(time).toLocaleString()
-			),
-			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-				'p',
-				null,
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-					'button',
-					{ onClick: this.increment },
-					'Click Me'
-				),
-				' ',
-				'Clicked ',
-				count,
-				' times.'
-			)
-		);
-	};
-
-	return Profile;
-}(__WEBPACK_IMPORTED_MODULE_0_preact__["Component"]);
-
-
-
-/***/ }),
-
-/***/ "hH6L":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.Link = exports.Match = undefined;
-
-var _extends = Object.assign || function (target) {
-	for (var i = 1; i < arguments.length; i++) {
-		var source = arguments[i];for (var key in source) {
-			if (Object.prototype.hasOwnProperty.call(source, key)) {
-				target[key] = source[key];
-			}
-		}
-	}return target;
-};
-
-var _preact = __webpack_require__("JcFu");
-
-var _preactRouter = __webpack_require__("fZlY");
-
-function _objectWithoutProperties(obj, keys) {
-	var target = {};for (var i in obj) {
-		if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	}return target;
-}
-
-function _classCallCheck(instance, Constructor) {
-	if (!(instance instanceof Constructor)) {
-		throw new TypeError("Cannot call a class as a function");
-	}
-}
-
-function _possibleConstructorReturn(self, call) {
-	if (!self) {
-		throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	}return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-	if (typeof superClass !== "function" && superClass !== null) {
-		throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Match = exports.Match = function (_Component) {
-	_inherits(Match, _Component);
-
-	function Match() {
-		var _temp, _this, _ret;
-
-		_classCallCheck(this, Match);
-
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
-
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.update = function (url) {
-			_this.nextUrl = url;
-			_this.setState({});
-		}, _temp), _possibleConstructorReturn(_this, _ret);
-	}
-
-	Match.prototype.componentDidMount = function componentDidMount() {
-		_preactRouter.subscribers.push(this.update);
-	};
-
-	Match.prototype.componentWillUnmount = function componentWillUnmount() {
-		_preactRouter.subscribers.splice(_preactRouter.subscribers.indexOf(this.update) >>> 0, 1);
-	};
-
-	Match.prototype.render = function render(props) {
-		var url = this.nextUrl || (0, _preactRouter.getCurrentUrl)(),
-		    path = url.replace(/\?.+$/, '');
-		this.nextUrl = null;
-		return props.children[0] && props.children[0]({
-			url: url,
-			path: path,
-			matches: path === props.path
-		});
-	};
-
-	return Match;
-}(_preact.Component);
-
-var Link = function Link(_ref) {
-	var activeClassName = _ref.activeClassName,
-	    path = _ref.path,
-	    props = _objectWithoutProperties(_ref, ['activeClassName', 'path']);
-
-	return (0, _preact.h)(Match, { path: path || props.href }, function (_ref2) {
-		var matches = _ref2.matches;
-		return (0, _preact.h)(_preactRouter.Link, _extends({}, props, { 'class': [props.class || props.className, matches && activeClassName].filter(Boolean).join(' ') }));
-	});
-};
-
-exports.Link = Link;
-exports.default = Match;
-
-Match.Link = Link;
 
 /***/ }),
 
@@ -1186,18 +837,43 @@ var Timer = function (_Component) {
 
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
       'div',
-      { className: 'timer' },
-      dist.years,
+      { 'class': __WEBPACK_IMPORTED_MODULE_2__style___default.a.timer },
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
+        'span',
+        null,
+        dist.years
+      ),
       ' \u5E74 ',
-      dist.months,
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
+        'span',
+        null,
+        dist.months
+      ),
       ' \u6708 ',
-      dist.days,
-      ' \u65E5 ',
-      dist.hours,
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
+        'span',
+        null,
+        dist.days
+      ),
+      ' \u65E5',
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
+        'span',
+        null,
+        dist.hours
+      ),
       ' \u65F6 ',
-      dist.minutes,
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
+        'span',
+        null,
+        dist.minutes
+      ),
       ' \u5206 ',
-      dist.seconds,
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
+        'span',
+        null,
+        dist.seconds,
+        ' '
+      ),
       ' \u79D2'
     );
   };
@@ -1206,7 +882,7 @@ var Timer = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_preact__["Component"]);
 
 Timer.defaultProps = {
-  // 颜色渐变列表
+  // 初始化时间
   baseTime: new Date('2015-9-19 22:10:00').valueOf()
 };
 /* harmony default export */ __webpack_exports__["a"] = (Timer);
@@ -1308,6 +984,14 @@ exports.timeMinus = timeMinus;
 
 /***/ }),
 
+/***/ "pWUa":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"bgCanvas":"bgCanvas__1_9YZ"};
+
+/***/ }),
+
 /***/ "qLaj":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1316,9 +1000,7 @@ exports.timeMinus = timeMinus;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact__ = __webpack_require__("JcFu");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_preact__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_preact_router__ = __webpack_require__("fZlY");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__header__ = __webpack_require__("sIAo");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_home__ = __webpack_require__("E1C8");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_profile__ = __webpack_require__("gNuw");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes_home__ = __webpack_require__("E1C8");
 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1332,15 +1014,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
-// import Home from 'async!./home';
-// import Profile from 'async!./profile';
-
-var _ref = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(__WEBPACK_IMPORTED_MODULE_3__routes_home__["a" /* default */], { path: '/' });
-
-var _ref2 = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(__WEBPACK_IMPORTED_MODULE_4__routes_profile__["a" /* default */], { path: '/profile/', user: 'me' });
-
-var _ref3 = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(__WEBPACK_IMPORTED_MODULE_4__routes_profile__["a" /* default */], { path: '/profile/:user' });
+var _ref = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(__WEBPACK_IMPORTED_MODULE_2__routes_home__["a" /* default */], { path: '/' });
 
 var App = function (_Component) {
 	_inherits(App, _Component);
@@ -1369,11 +1043,9 @@ var App = function (_Component) {
 			'div',
 			{ id: 'app' },
 			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-				__WEBPACK_IMPORTED_MODULE_1_preact_router__["Router"],
+				__WEBPACK_IMPORTED_MODULE_1_preact_router__["a" /* Router */],
 				{ onChange: this.handleRoute },
-				_ref,
-				_ref2,
-				_ref3
+				_ref
 			)
 		);
 	};
@@ -1385,23 +1057,15 @@ var App = function (_Component) {
 
 /***/ }),
 
-/***/ "rq4c":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "sIAo":
+/***/ "rPwV":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export default */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact__ = __webpack_require__("JcFu");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_preact__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_preact_router_match__ = __webpack_require__("hH6L");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_preact_router_match___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_preact_router_match__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style__ = __webpack_require__("u3et");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_animate__ = __webpack_require__("vBoo");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__utils_animate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style__ = __webpack_require__("UKZy");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__style__);
 
 
@@ -1415,60 +1079,209 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var _ref = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-	'h1',
-	null,
-	'Preact App'
-);
+var Heart = function (_Component) {
+	_inherits(Heart, _Component);
 
-var Header = function (_Component) {
-	_inherits(Header, _Component);
-
-	function Header() {
-		_classCallCheck(this, Header);
+	function Heart() {
+		_classCallCheck(this, Heart);
 
 		return _possibleConstructorReturn(this, _Component.apply(this, arguments));
 	}
 
-	Header.prototype.render = function render() {
-		return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-			'header',
-			{ 'class': __WEBPACK_IMPORTED_MODULE_2__style___default.a.header },
-			_ref,
-			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-				'nav',
-				null,
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-					__WEBPACK_IMPORTED_MODULE_1_preact_router_match__["Link"],
-					{ activeClassName: __WEBPACK_IMPORTED_MODULE_2__style___default.a.active, href: '/' },
-					'Home'
-				),
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-					__WEBPACK_IMPORTED_MODULE_1_preact_router_match__["Link"],
-					{ activeClassName: __WEBPACK_IMPORTED_MODULE_2__style___default.a.active, href: '/profile' },
-					'Me'
-				),
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])(
-					__WEBPACK_IMPORTED_MODULE_1_preact_router_match__["Link"],
-					{ activeClassName: __WEBPACK_IMPORTED_MODULE_2__style___default.a.active, href: '/profile/john' },
-					'John'
-				)
-			)
-		);
+	Heart.prototype.render = function render() {
+		var dist = this.state.dist;
+
+		return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])('div', { 'class': __WEBPACK_IMPORTED_MODULE_2__style___default.a.heart });
 	};
 
-	return Header;
+	return Heart;
 }(__WEBPACK_IMPORTED_MODULE_0_preact__["Component"]);
 
-
+/* harmony default export */ __webpack_exports__["a"] = (Heart);
 
 /***/ }),
 
-/***/ "u3et":
+/***/ "rYcU":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact__ = __webpack_require__("JcFu");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_preact__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_animate__ = __webpack_require__("vBoo");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__utils_animate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style__ = __webpack_require__("pWUa");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__style__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var renderParticule = function renderParticule(canvasEl) {
+	canvasEl = canvasEl || document.querySelector('#bgCanvas');
+	var ctx = canvasEl.getContext('2d');
+	var numberOfParticules = Number(location.href.split('?')[1]) || 40;
+	var pointerX = 0;
+	var pointerY = 0;
+	var tap = 'ontouchstart' in window || navigator.msMaxTouchPoints ? 'touchstart' : 'mousedown';
+	var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
+
+	function setCanvasSize() {
+		canvasEl.width = window.innerWidth * 2;
+		canvasEl.height = window.innerHeight * 2;
+		canvasEl.style.width = window.innerWidth + 'px';
+		canvasEl.style.height = window.innerHeight + 'px';
+		canvasEl.getContext('2d').scale(2, 2);
+	}
+
+	function updateCoords(e) {
+		pointerX = e.clientX || e.touches[0].clientX;
+		pointerY = e.clientY || e.touches[0].clientY;
+	}
+
+	function setParticuleDirection(p) {
+		var angle = __WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(0, 360) * Math.PI / 180;
+		var value = __WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(50, 180);
+		var radius = [-1, 1][__WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(0, 1)] * value;
+		return {
+			x: p.x + radius * Math.cos(angle),
+			y: p.y + radius * Math.sin(angle)
+		};
+	}
+
+	function createParticule(x, y) {
+		var p = {};
+		p.x = x;
+		p.y = y;
+		p.color = colors[__WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(0, colors.length - 1)];
+		p.radius = __WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(16, 32);
+		p.endPos = setParticuleDirection(p);
+		p.draw = function () {
+			ctx.beginPath();
+			ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
+			ctx.fillStyle = p.color;
+			ctx.fill();
+		};
+		return p;
+	}
+
+	function createCircle(x, y) {
+		var p = {};
+		p.x = x;
+		p.y = y;
+		p.color = '#FFF';
+		p.radius = 0.1;
+		p.alpha = .5;
+		p.lineWidth = 6;
+		p.draw = function () {
+			ctx.globalAlpha = p.alpha;
+			ctx.beginPath();
+			ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
+			ctx.lineWidth = p.lineWidth;
+			ctx.strokeStyle = p.color;
+			ctx.stroke();
+			ctx.globalAlpha = 1;
+		};
+		return p;
+	}
+
+	function renderParticule(anim) {
+		for (var i = 0; i < anim.animatables.length; i++) {
+			anim.animatables[i].target.draw();
+		}
+	}
+
+	function animateParticules(x, y) {
+		var circle = createCircle(x, y);
+		var particules = [];
+		for (var i = 0; i < numberOfParticules; i++) {
+			particules.push(createParticule(x, y));
+		}
+		__WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.timeline().add({
+			targets: particules,
+			x: function x(p) {
+				return p.endPos.x;
+			},
+			y: function y(p) {
+				return p.endPos.y;
+			},
+			radius: 0.1,
+			duration: __WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(1200, 1800),
+			easing: 'easeOutExpo',
+			update: renderParticule
+		}).add({
+			targets: circle,
+			radius: __WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(80, 160),
+			lineWidth: 0,
+			alpha: {
+				value: 0,
+				easing: 'linear',
+				duration: __WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(600, 800)
+			},
+			duration: __WEBPACK_IMPORTED_MODULE_1__utils_animate___default.a.random(1200, 1800),
+			easing: 'easeOutExpo',
+			update: renderParticule,
+			offset: 0
+		});
+	}
+
+	var render = __WEBPACK_IMPORTED_MODULE_1__utils_animate___default()({
+		duration: Infinity,
+		update: function update() {
+			ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+		}
+	});
+
+	document.addEventListener(tap, function (e) {
+		window.human = true;
+		render.play();
+		updateCoords(e);
+		animateParticules(pointerX, pointerY);
+	}, false);
+
+	window.addEventListener('resize', setCanvasSize, false);
+
+	return {
+		render: render,
+		setCanvasSize: setCanvasSize,
+		animateParticules: animateParticules
+	};
+};
+
+var Particule = function (_Component) {
+	_inherits(Particule, _Component);
+
+	function Particule() {
+		_classCallCheck(this, Particule);
+
+		return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+	}
+
+	Particule.prototype.componentDidMount = function componentDidMount() {
+		renderParticule();
+	};
+
+	Particule.prototype.render = function render() {
+		return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_preact__["h"])('canvas', { 'class': __WEBPACK_IMPORTED_MODULE_2__style___default.a.bgCanvas, id: 'bgCanvas' });
+	};
+
+	return Particule;
+}(__WEBPACK_IMPORTED_MODULE_0_preact__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Particule);
+
+/***/ }),
+
+/***/ "rq4c":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"header":"header__3QGkI","active":"active__3gItZ"};
 
 /***/ }),
 
