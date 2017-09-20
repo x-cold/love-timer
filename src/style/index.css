@@ -31,9 +31,27 @@ html, body {
 
 .copyright {
 	font-size: 24px;
-	opacity: .8;
+	opacity: .75;
 }
 
 .copyright .desc {
 	font-size: 14px;
+	opacity: .65;
+}
+
+@media screen and (max-width: 768px) {
+	.container .content {
+		padding-top: 200px;
+		text-align: center;
+	}
+	.copyright .desc {
+		display: block;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.container .content {
+		padding-top: 80px;
+		text-align: center;
+	}
 }

@@ -1,8 +1,9 @@
 import { h, Component } from 'preact';
 import anime from '../../utils/animate';
-import './style';
+import style from './style';
 
 const renderParticule = function (canvasEl) {
+	canvasEl = canvasEl || document.querySelector('#bgCanvas');
 	var ctx = canvasEl.getContext('2d');
 	var numberOfParticules = Number(location.href.split('?')[1]) || 40;
 	var pointerX = 0;
@@ -129,18 +130,16 @@ const renderParticule = function (canvasEl) {
 	}
 };
 
-
-class Timer extends Component {
-  componentDidMount() {
-    renderParticule(this.refs.bgCanvas);
-  }
-
+class Particule extends Component {
+	componentDidMount() {
+		renderParticule();
+	}
+	
 	render() {
-    const { dist } = this.state;
 		return (
-			<canvas id="bgCanvas" ref="bgCanvas"></canvas>
+			<canvas class={ style.bgCanvas } id="bgCanvas"></canvas>
 		);
 	}
 }
 
-export default Timer;
+export default Particule;

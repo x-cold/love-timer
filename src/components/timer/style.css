@@ -1,6 +1,8 @@
 .timer {
+	padding: 12px 20px;
   font-family: DIN, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	font-size: 42px;
+	opacity: .85;
 	text-align: center;
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Chrome/Safari/Opera */
@@ -8,4 +10,10 @@
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none;
+}
+
+@media screen and (max-width: 768px) {
+	.timer {
+		font-size: 32px;
+	}
 }

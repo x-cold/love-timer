@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import { timeMinus } from '../../utils/time';
-import './style';
+import style from './style';
 
 class Timer extends Component {
   state = {
@@ -40,8 +40,9 @@ class Timer extends Component {
 	render() {
     const { dist } = this.state;
 		return (
-			<div className="timer">
-				{dist.years} 年 {dist.months} 月 {dist.days} 日 {dist.hours} 时 {dist.minutes} 分 {dist.seconds} 秒
+			<div class={ style.timer }>
+        <span>{ dist.years }</span> 年 <span>{ dist.months }</span> 月 <span>{ dist.days }</span> 日 
+        <span>{ dist.hours }</span> 时 <span>{ dist.minutes }</span> 分 <span>{ dist.seconds} </span> 秒
 			</div>
 		);
 	}

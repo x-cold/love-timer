@@ -16,19 +16,16 @@
 	}
 }
 
-.heartbeat {
-  -webkit-animation: heartbeat ease-in-out 0.8s infinite alternate;
-  -ms-animation: heartbeat ease-in-out 0.8s infinite alternate;
-  animation: heartbeat ease-in-out 0.8s infinite alternate;
-  display: inline-block
-}
-
 .heart {
 	margin: 30px auto;
 	position: relative;
 	width: 200px;
 	height: 180px;
 	opacity: .65;
+	-webkit-animation: heartbeat ease-in-out 0.8s infinite alternate;
+  -ms-animation: heartbeat ease-in-out 0.8s infinite alternate;
+  animation: heartbeat ease-in-out 0.8s infinite alternate;
+  display: inline-block;
 }
 
 .heart:before,
