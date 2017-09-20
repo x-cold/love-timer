@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import { timeMinus } from '../../utils/time';
-import style from './style';
+import './style';
 
 class Timer extends Component {
   state = {
@@ -48,7 +48,7 @@ class Timer extends Component {
 }
 
 Timer.defaultProps = {
-  // 颜色渐变列表
+  // 初始化时间
   baseTime: new Date('2015-9-19 22:10:00').valueOf()
 };
 export default Timer;
