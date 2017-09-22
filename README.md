@@ -2,6 +2,11 @@
 
 A preact headfirst project.
 
+## Preparation
+
+```
+npm install -g preact-cli
+```
 
 ## Dev
 

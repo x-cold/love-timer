@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { timeMinus } from '../../utils/time';
+import { dateMinus } from 'date-minus';
 import style from './style';
 
 class Timer extends Component {
@@ -11,7 +11,7 @@ class Timer extends Component {
 
   computeDist() {
     const { baseTime } = this.props;
-    var dist = timeMinus(baseTime);
+    var dist = dateMinus(baseTime);
     this.setState({
       dist
     });
