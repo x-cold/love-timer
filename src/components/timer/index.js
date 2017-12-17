@@ -52,4 +52,5 @@ Timer.defaultProps = {
   // 初始化时间
   baseTime: new Date('2015-9-19 22:10:00').valueOf()
 };
+
 export default Timer;
