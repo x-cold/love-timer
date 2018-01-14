@@ -13,7 +13,7 @@ export default function (config, env, helpers) {
   if (env._.indexOf('watch') > -1) {
     return;
   }
-  config.output.publicPath = '/2years';
+  config.output.publicPath = '/2years/';
   /** you can change config here **/
   if (config.output.path.indexOf('ssr') > -1) {
     config.output.path = path.join(__dirname, '/docs/ssr-build');
