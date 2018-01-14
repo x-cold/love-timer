@@ -1,7 +1,7 @@
 {
   "name": "二周年哟~",
   "short_name": "二周年快乐哟~",
-  "start_url": ".",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",
