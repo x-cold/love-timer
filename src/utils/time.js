@@ -1,12 +1,14 @@
 function getDaysInMonth(month) {
-	var data = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	return data[month];
+  var data = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  return data[month];
 }
 
 /**
  * 时间减法，参考借位减法
  * 
- * @param {Date} date 传入时间（过去）
+ * @param {Date} date 被减数
+ * @param {Date} current 减数
+ *
  * @return {Object} 时间差
  */
 function timeMinus(date, current) {
@@ -26,31 +28,31 @@ function timeMinus(date, current) {
     passed = false;
   }
 
-	var years = 0;
-	var months = 0;
-	var days = 0;
-	var hours = 0;
-	var minutes = 0;
+  var years = 0;
+  var months = 0;
+  var days = 0;
+  var hours = 0;
+  var minutes = 0;
   var seconds = 0;
 
-	seconds = current.getSeconds() - date.getSeconds();
-	if (seconds < 0) {
-		seconds += 60;
-		current.setMinutes(current.getMinutes() - 1);
+  seconds = current.getSeconds() - date.getSeconds();
+  if (seconds < 0) {
+    seconds += 60;
+    current.setMinutes(current.getMinutes() - 1);
   }
-  
-	minutes = current.getMinutes() - date.getMinutes();
-	if (minutes < 0) {
-		minutes += 60;
-		current.setHours(current.getHours() - 1);
+
+  minutes = current.getMinutes() - date.getMinutes();
+  if (minutes < 0) {
+    minutes += 60;
+    current.setHours(current.getHours() - 1);
   }
-  
-	hours = current.getHours() - date.getHours();
-	if (hours < 0) {
-		hours += 24;
-		current.setDate(current.getDate() - 1);
+
+  hours = current.getHours() - date.getHours();
+  if (hours < 0) {
+    hours += 24;
+    current.setDate(current.getDate() - 1);
   }
-  
+
   days = current.getDate() - date.getDate();
   if (days < 0) {
     days += getDaysInMonth(current.getMonth());
@@ -65,15 +67,15 @@ function timeMinus(date, current) {
 
   years = current.getFullYear() - date.getFullYear();
 
-	if (hours < 10) {
-		hours = "0" + hours;
-	}
-	if (minutes < 10) {
-		minutes = "0" + minutes;
-	}
-	if (seconds < 10) {
-		seconds = "0" + seconds;
-	}
+  if (hours < 10) {
+    hours = "0" + hours;
+  }
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
 
   return {
     years,
