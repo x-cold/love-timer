@@ -1,6 +1,6 @@
-# 2years for wanwan
+# Love Timer
 
-A preact headfirst project.
+A timer for record of love, as well as a preact headfirst project.
 
 ## Preparation
 
