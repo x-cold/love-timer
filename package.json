@@ -14,10 +14,8 @@
     "extends": "eslint-config-synacor"
   },
   "dependencies": {
+    "date-minus": "^1.0.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.5"
-  },
-  "devDependencies": {
-    "date-minus": "^1.0.0"
   }
 }

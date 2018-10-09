@@ -828,6 +828,8 @@ var timer_Timer = function (_Component) {
     this.clearTimer();
   };
 
+  Timer.prototype.componentDidMount = function componentDidMount() {};
+
   Timer.prototype.render = function render() {
     var dist = this.state.dist;
 
@@ -879,7 +881,7 @@ var timer_Timer = function (_Component) {
 
 timer_Timer.defaultProps = {
   // 初始化时间
-  baseTime: new Date('2015-9-19 22:10:00').valueOf()
+  baseTime: new Date('2015/09/19 22:10:00').valueOf()
 };
 
 /* harmony default export */ var timer = (timer_Timer);

@@ -37,6 +37,9 @@ class Timer extends Component {
     this.clearTimer();
   }
 
+  componentDidMount() {
+  }
+
 	render() {
     const { dist } = this.state;
 		return (
@@ -50,7 +53,7 @@ class Timer extends Component {
 
 Timer.defaultProps = {
   // 初始化时间
-  baseTime: new Date('2015-9-19 22:10:00').valueOf()
+  baseTime: new Date('2015/09/19 22:10:00').valueOf()
 };
 
 export default Timer;
